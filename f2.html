@@ -56,28 +56,27 @@
 
                 finally, populate the city and state text boxes with the city and state that are in the new array
         */
-       var city = document.querySelector(`#city`);
-       var state = document.querySelector(`#state`);
-       var zip = document.querySelector(`#zip`);
-       var button = document.querySelector(`input[type="button"]`);
-       
-       var list = [
-            city.value,
-            state.value,
-            zip.value
-        ]
+        var city = document.querySelector('#city');
+        var state = document.querySelector('#state');
+        var zip = document.querySelector('#zip');
+        var button = document.querySelector('input[type="button"]');
 
+        button.addEventListener('click', async (e) => {
+            var zipCode = zip.value;
+            var response = await fetch(`https://geocode.maps.co/search?q=${zipCode}+US`);
+            var data = await response.json();
+            console.log(data);
 
-       button.addEventListener(`click`, async(e) => {
-           var data = fetch(`https://geocode.maps.co/search?q=zip+US`);
-           console.log(data)
+            if (data.length > 0) {
+                var displayName = data[0].display_name;
+                var addressArray = displayName.split(',');
+                console.log(addressArray);
 
-           
-           console.log(list)
-           
-          document.querySelector(`#state`).innerHTML = list[1]
-          document.querySelector(`#city`).innterHTML = list[0]
-           
+                if (addressArray.length >= 5) {
+                    city.value = addressArray[0].trim();
+                    state.value = addressArray[2].trim();
+                }
+            }
         });
 
 
