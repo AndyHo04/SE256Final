@@ -29,6 +29,17 @@
                     Example: Number(some string goes here);
                 *display the returned value in the last input.
        */
+       // Function to add two numbers
+        function add(a, b) {
+            return a + b;
+        }
+
+        var button = document.querySelector(`input[type="button"]`);
+        button.addEventListener('click', function() {
+            var inputs = document.querySelectorAll(`input[type="number"]`);
+            var sum = add(Number(inputs[0].value), Number(inputs[1].value));
+            inputs[2].value = sum;
+        }); 
     </script>
     <script>
 

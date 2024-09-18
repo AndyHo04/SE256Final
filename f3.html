@@ -45,7 +45,14 @@
             * class = `message`
             * parent = `main`
         */
-    
+        var counter = 0;
+
+        var config = {
+            tag: 'div',
+            id: 'm',
+            class: 'message',
+            parent: 'main'
+        };
         /*  PART 2
             create a function called addMessage with two parameters:
             * message=`` 
@@ -64,7 +71,16 @@
                 append the element to the passed in object's parent property
                 return the element
         */
-
+        function addMessage(message = '', obj = {tag: 'p', id: 'p', class: 'basic', parent: 'body'}) {
+            var element = document.createElement(obj.tag);
+            element.setAttribute('id', obj.id + counter);
+            counter++;
+            element.setAttribute('class', obj.class);
+            var textNode = document.createTextNode(message);
+            element.appendChild(textNode);
+            document.querySelector(obj.parent).appendChild(element);
+            return element;
+        }
         /*
             Loop through the messages
              for each message
@@ -74,6 +90,10 @@
             The result will be 3 divs with "Hi", "Hello", and "Goodbye"
             They will also include data automatically inserted by the function below.
         */ 
+        // Loop through the messages and call addMessage function
+        messages.forEach(message => {
+            addMessage(message, config);
+        });
 
         /*---------------------DO NOT DELETE-----------------------------*/
         (function display(list){list.forEach(index=>{index.innerHTML += `<div class="table"><div><b>id:</b></div><div>${index.id}</div><div><b>class:</b></div><div>${index.classList[0]}</div></div>`})})(document.querySelectorAll(`.message`));

@@ -52,6 +52,7 @@
             otherwise make the row's text color red
        */
 
+        /* - OLD WAY
         var main = document.querySelector(`main`);
         var message = ``;  
         
@@ -75,9 +76,39 @@
         }
         message += `</div>`;
         main.innerHTML += message;
-    </script>
-    <script>
+        */
+       // Sort the array in descending order by age
+       peeps.sort((a, b) => b.age - a.age);
 
+        // Select the <main> element
+        var mainElement = document.querySelector('main');
+
+        // Loop through the array
+        peeps.forEach(person => {
+            // Create a div for each person
+            var row = document.createElement('div');
+            row.setAttribute('class', 'row');
+
+            // Create divs for the name and age properties
+            var nameDiv = document.createElement('div');
+            nameDiv.textContent = person.name; //could use innerHTML. TextContent only sets or gets text content and does not parse or use any HTML Tags like <b> or <i>
+            var ageDiv = document.createElement('div');
+            ageDiv.textContent = person.age;
+
+            // Append the name and age divs to the row
+            row.appendChild(nameDiv);
+            row.appendChild(ageDiv);
+
+            // Set the text color based on age
+            if (person.age < 21) {
+                row.style.color = 'blue';
+            } else {
+                row.style.color = 'red';
+            }
+
+            // Append the row to the <main> element
+            mainElement.appendChild(row);
+        });
       
     </script>
 </body>
